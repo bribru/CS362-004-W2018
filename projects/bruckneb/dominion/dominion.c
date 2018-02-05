@@ -5,6 +5,15 @@
 #include <math.h>
 #include <stdlib.h>
 
+/* prototypes */
+int cardEffect_CouncilRoom(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int cardEffect_Smithy(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int cardEffect_Adventurer(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int cardEffect_Village(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int cardEffect_GreatHall(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+
+
+
 int compare(const void* a, const void* b) {
   if (*(int*)a > *(int*)b)
     return 1;
@@ -1363,4 +1372,5 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 //end of dominion.c
+
 
