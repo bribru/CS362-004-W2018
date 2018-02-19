@@ -833,10 +833,13 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       for (i = 0; i < 3; i++)
 	{
 	  drawCard(currentPlayer, state);
+// printf("here 1 (i=%d)\n",i);
 	}
 			
       //discard card from hand
+// printf("here 2\n");
       discardCard(handPos, currentPlayer, state, 0);
+// printf("here 3");
       return 0;
 		
     case village:

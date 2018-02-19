@@ -53,6 +53,17 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+randomtest: randomtestdriver.h randomtestdriver.c randomtestadventurer.h randomtestadventurer.c randomtestcard1.h randomtestcard1.c randomtestcard2.h randomtestcard2.c dominion.o rngs.o 
+	gcc -o test04 randomtestdriver.c randomtestadventurer.c randomtestcard1.c randomtestcard2.c -g dominion.o rngs.o $(CFLAGS)
+	./test04 adventurer > randomtestadventurer.out
+	gcov -f -b dominion.c >> randomtestadventurer.out
+	
+	./test04 smithy > randomtestcard1.out
+	gcov -f -b dominion.c >> randomtestcard1.out
+	
+	./test04 council_room > randomtestcard2.out
+	gcov -f -b dominion.c >> randomtestcard2.out
+
 assignment3: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c rngs.c dominion.o
 	gcc unittest1.c dominion.o rngs.o -lm --coverage -o unittest1
 	gcc unittest2.c dominion.o rngs.o -lm --coverage -o unittest2
