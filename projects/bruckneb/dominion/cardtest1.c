@@ -5,6 +5,13 @@
 * File: cardtest1.c
 * 
 * This file tests the Smithy card
+*
+* basic requirements of smithy:
+* 1. Current player should receive exactly 3 cards.
+* 2. 3 cards should come from his own pile.
+* 3. No state change should occur for other players.
+* 4. No state change should occur to the victory card piles and kingdom card piles.
+*
 *******************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
