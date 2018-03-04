@@ -33,17 +33,17 @@ unittest3:
 unittest4:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c unittest4.c rngs.c -o unittest4 -lm -g
 
-cardtest1:
-	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c cardtest1.c rngs.c -o cardtest1 -lm -g
+cardtest1: cardtest1.c dominion.o rngs.o 
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 cardtest1.c dominion.o rngs.o -o cardtest1 -lm -g
 
-cardtest2:
-	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c cardtest2.c rngs.c -o cardtest2 -lm -g
+cardtest2: cardtest2.c dominion.o rngs.o 
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 cardtest2.c dominion.o rngs.o -o cardtest2 -lm -g
 
-cardtest3:
-	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c cardtest3.c rngs.c -o cardtest3 -lm -g
+cardtest3: cardtest3.c dominion.o rngs.o
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 cardtest3.c dominion.o rngs.o -o cardtest3 -lm -g
 
-cardtest4:
-	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c cardtest4.c rngs.c -o cardtest4 -lm -g
+cardtest4: cardtest4.c dominion.o rngs.o
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 cardtest4.c dominion.o rngs.o -o cardtest4 -lm -g
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
@@ -52,6 +52,17 @@ runtests: testDrawCard
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
+
+randomtest: randomtestdriver.h randomtestdriver.c randomtestadventurer.h randomtestadventurer.c randomtestcard1.h randomtestcard1.c randomtestcard2.h randomtestcard2.c dominion.o rngs.o 
+	gcc -o test04 randomtestdriver.c randomtestadventurer.c randomtestcard1.c randomtestcard2.c -g dominion.o rngs.o $(CFLAGS)
+	./test04 adventurer > randomtestadventurer.out
+	gcov -f -b dominion.c >> randomtestadventurer.out
+	
+	./test04 smithy > randomtestcard1.out
+	gcov -f -b dominion.c >> randomtestcard1.out
+	
+	./test04 council_room > randomtestcard2.out
+	gcov -f -b dominion.c >> randomtestcard2.out
 
 assignment3: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c rngs.c dominion.o
 	gcc unittest1.c dominion.o rngs.o -lm --coverage -o unittest1
