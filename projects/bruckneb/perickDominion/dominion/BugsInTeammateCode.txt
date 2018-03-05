@@ -1,0 +1,113 @@
+========================================================================
+Dominion Bug Report # 1
+========================================================================
+
+Title: Smithy error - too many cards drawn
+
+Class: Bug
+
+Date: 04-MAR-2017
+Reported By: Brian Bruckner
+Email: bruckneb@oregonstate.edu
+
+
+Product:  Dominion              Version:
+Platform: Linux (flip)          Version:
+Browser:  N/A                   Version:
+URL:      N/A
+
+Is it reproducible: Yes
+
+Description
+===========
+The hand count is always one higher than expected when playing Smithy
+
+Steps to Produce/Reproduce
+--------------------------
+Initialize game
+Get Smithy into hand (programmatically or in live play)
+Play Smithy card
+
+Expected Results
+----------------
+Hand count should go up by 3 cards, less one played card (Smithy) from
+the count prior to playing Smithy
+
+Actual Results
+--------------
+Hand count goes up by 4 cards, less one played card (Smithy)
+
+Workarounds
+-----------
+No known workarounds.
+
+Attachments
+-----------
+None
+
+Other Information
+-----------------
+It appears that the upper bound on the for loop in smithyEffect is in
+error. It seems that the following should have 3 rather than 4 as the 
+upper boundary.
+
+	for (i = 0; i < 4; i++)
+	{
+		drawCard(currentPlayer, state);
+	}
+
+========================================================================
+Dominion Bug Report # 2
+========================================================================
+
+Title: Village error - action count too high
+
+Class: Bug
+
+Date: 04-MAR-2017
+Reported By: Brian Bruckner
+Email: bruckneb@oregonstate.edu
+
+
+Product:  Dominion              Version:
+Platform: Linux (flip)          Version:
+Browser:  N/A                   Version:
+URL:      N/A
+
+Is it reproducible: Yes
+
+Description
+===========
+The action count is always one higher than expected when playing Village
+
+Steps to Produce/Reproduce
+--------------------------
+Initialize game
+Get Village into hand (programmatically or in live play)
+Play Village card
+
+Expected Results
+----------------
+Actions should go up by 2, less one played (Village) from the count prior
+to playing Village
+
+Actual Results
+--------------
+Actions goes up by 3, less one for the played card (Village)
+
+Workarounds
+-----------
+No known workarounds.
+
+Attachments
+-----------
+None
+
+Other Information
+-----------------
+It appears that the following line of villageEffect is in error:
+	state->numActions += 3;
+and should read:
+	state->numActions += 2;
+
+========================================================================
